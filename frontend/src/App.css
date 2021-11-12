@@ -1,38 +1,93 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: Prompt;
+}
+
+h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+hr {
+  color: black;
+  background: black;
+  border: 0.25px solid black;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form-container {
+  border: 2px solid #8157a1;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 72px 72px 36px 72px;
+  margin: 0px 64px;
+}
+
+.section {
+  padding: 30px 0px;
+}
+
+.row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.two-col {
+  width: 50%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.right-col {
+  margin-left: 30px;
+}
+
+.one-col .ant-col-4 {
+  flex: 0 0 8%;
+}
+
+.ant-form-item {
+  margin-bottom: 36px;
+}
+
+.ant-picker {
+  width: 100%;
+  border: 1px solid #8157a1;
+}
+
+.ant-picker:hover,
+.ant-input:hover,
+.ant-input-password:hover,
+.ant-btn:hover {
+  border: 1px solid #c092e0;
+}
+
+.ant-input,
+.ant-input-password,
+.ant-btn {
+  border: 1px solid #8157a1;
+}
+
+.ant-form-item-label {
+  text-align: left;
+}
+
+.ant-btn:hover {
+  color: #c092e0;
+}
+
+.btn-container {
+  text-align: right;
+}
+
+.ant-form-item-control-input-content {
+  margin-left: 30px;
 }
