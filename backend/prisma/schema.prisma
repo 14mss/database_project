@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model PROJECT_OWNER {
+  user_id             String              @id
+  username            String              @unique @db.VarChar(16)
+  password            String              @db.VarChar(100)
+  firstname           String              @db.VarChar(45)
+  lastname            String              @db.VarChar(45)
+  birthday            DateTime
+  email               String              @db.VarChar(255)
+  verify_email_status String              @db.VarChar(20)
+  house_no            String              @db.VarChar(10)
+  province            String              @db.VarChar(45)
+  district            String              @db.VarChar(45)
+  subdistrict         String              @db.VarChar(45)
+  postcode            String              @db.VarChar(5)
+  VERIFICATION_INFO   VERIFICATION_INFO?
+  PROJECT             PROJECT[]
+}
+
+model VERIFICATION_INFO {
+  citizen_id           String        @id @db.VarChar(13)
+  laser_id             String        @db.VarChar(12)
+  bank_name            String        @db.VarChar(45)
+  account_number       String        @db.VarChar(20)
+  acc_firstname        String        @db.VarChar(45)
+  acc_lastname         String        @db.VarChar(45)
+  book_bank_image_url String        @db.VarChar(2048)
+  id_card_image_url    String        @db.VarChar(2048)
+  status               String        @db.VarChar(20)
+  user_id              String
+  project_owner        PROJECT_OWNER @relation(fields: [user_id], references: [user_id])
+
+}
+
+model CATEGORY {
+  category_id   Int       @id
+  category_name String
+  PROJECT       PROJECT[]
+}
+
+model PROJECT {
+  project_id         String        @id
+  category_id        Int
+  category           CATEGORY      @relation(fields: [category_id], references: [category_id])
+  project_title      String        @db.VarChar(200)
+  objective          String        @db.VarChar(200)
+  description        String        @db.Text
+  video_url          String        @db.VarChar(2048)
+  image_url          String        @db.VarChar(2048)
+  start_date         DateTime      @default(now())
+  due_date           DateTime
+  crowd_funding_type String        @db.VarChar(10)
+  funding_goal       Float
+  status             String        @db.VarChar(20)
+  donation_amount    Float         @default(0.00)
+  user_id            String
+  project_owner      PROJECT_OWNER @relation(fields: [user_id], references: [user_id])
+}

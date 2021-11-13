@@ -1,12 +1,77 @@
-const express = require('express');
-const mysql_connection = require('../db_connection/mysql_connection');
-require('dotenv').config()
-const router = express.Router()
+const express = require("express");
+const { v4: uuidv4 } = require("uuid");
+const bcrypt = require("bcryptjs");
+const project_owner_service = require("../services/project_owner.service");
+require("dotenv").config();
+const router = express.Router();
 
+router.get("/:username", async (req, res) => {
+  const { username } = req.params;
+  const project_owner = await project_owner_service.findProjectOwnerByUsername(
+    username
+  );
+  return res.send(project_owner).status(200);
+});
 
-router.get('/',async (req,res)=>{
-    // const [rows,fields] = await mysql_connection.query( 'SELECT * FROM CUSTOMER');
-    return res.send('project owner route');
+router.post("/register", async (req, res) => {
+  const user_id = uuidv4();
+  const { user_info, verification_info } = req.body;
+  const { password, ...rest } = user_info;
+  const salt = await bcrypt.genSalt(Number(process.env.SALT));
+  const hash_password = await bcrypt.hash(password, salt);
+  const new_user_info = { user_id: user_id, password: hash_password, ...rest };
+  try {
+    await project_owner_service.createProjectOwner(
+      new_user_info,
+      verification_info
+    );
+    return res.send("success").status(201);
+  } catch (err) {
+    console.log(err);
+    return res.send("unsuccess").status(400);
+  }
+});
+
+router.patch("/edit", async (req, res) => {
+  const { user_info, verification_info } = req.body;
+  const { username, password } = user_info;
+  const { user_id } = await project_owner_service.getProjectOwnerId(username);
+
+  if (!user_id) {
+    return res.send("can not find project owner's id");
+  }
+  const salt = await bcrypt.genSalt(Number(process.env.SALT));
+  const hash_password = await bcrypt.hash(password, salt);
+  const new_user_info = {
+    user_id: user_id,
+    password: hash_password,
+    ...user_info,
+  };
+
+  try {
+    project_owner_service.updateProjectOwnerInfo(
+      new_user_info,
+      verification_info
+    );
+    return res.send("success").status(201);
+  } catch (err) {
+    return res.send("unsuccess").status(400);
+  }
+});
+
+router.delete("/delete", async (req, res) => {
+  const { username } = req.body;
+  const user_id = await project_owner_service.getProjectOwnerId(username);
+  if (!user_id) {
+    return res.send("can not find project owner's id");
+  }
+
+  try {
+    await project_owner_service.deleteProjectOwner(user_id);
+    return res.send("success").status(200);
+  } catch (err) {
+    return res.send("unsuccess").status(400);
+  }
 });
 
 module.exports = router;
