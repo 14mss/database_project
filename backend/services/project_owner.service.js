@@ -40,12 +40,17 @@ const createProjectOwner = async (user_info, verification_info) => {
   }
 };
 
-const findProjectOwnerByUsername = async (username) => {
+const getProjectOwnerByUsername = async (username) => {
   const [rows, fields] = await mysql_connection.query(
     `SELECT * FROM PROJECT_OWNER WHERE username = "${username}" limit 1;`
   );
-  return rows;
+  return rows[0];
 };
+
+const getVerificationInfoById = async (user_id) => {
+    const [rows,fields] = await mysql_connection.query(`SELECT * FROM VERIFICATION_INFO WHERE user_id="${user_id}"`);
+    return rows[0];
+}
 
 const getProjectOwnerId = async (username) => {
   const [rows, fields] = await mysql_connection.query(
@@ -112,7 +117,8 @@ const updateProjectOwnerInfo = async (user_info, verification_info) => {
 };
 module.exports = {
   createProjectOwner,
-  findProjectOwnerByUsername,
+  getProjectOwnerByUsername,
+  getVerificationInfoById,
   getProjectOwnerId,
   updateProjectOwnerInfo,
   deleteProjectOwner,
