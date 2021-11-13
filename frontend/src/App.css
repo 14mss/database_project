@@ -123,6 +123,10 @@ hr {
   border: 1px solid #c092e0 !important;
 }
 
+.ant-input-affix-wrapper .ant-input:hover {
+  border: none !important;
+}
+
 .ant-input,
 .ant-input-password,
 .ant-btn,
