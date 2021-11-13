@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import RegisterProjectOwner from "./pages/regiseter-projectowner";
+import CreateProject from "./pages/create-project";
+import EditProfile from "./pages/edit-profile";
+import "antd/dist/antd.css";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ViewProject from "./pages/view-project";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="navbar-container">
+        <div className="gradient-logo">ProjectLauncher</div>
+        <div>
+          <Link to="/view-project">
+            <button className="btn">ดูข้อมูลโครงการ</button>
+          </Link>
+          <Link to="/edit-profile">
+            <button className="btn">แก้ไขข้อมูลบัญชี</button>
+          </Link>
+          <Link to="/">
+            <button className="btn fill-btn">ลงทะเบียน</button>
+          </Link>
+        </div>
+      </div>
+      <Routes>
+        <Route path="/view-project" element={<ViewProject />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/" element={<RegisterProjectOwner />} />
+      </Routes>
+    </Router>
   );
 }
 
