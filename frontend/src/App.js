@@ -4,33 +4,16 @@ import EditProfile from "./pages/edit-profile";
 import "antd/dist/antd.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ViewProject from "./pages/view-project";
 
 function App() {
-  const bookbankimg = {
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }) {
-      if (file.status !== "uploading") {
-        console.log(file, fileList);
-      }
-    },
-    defaultFileList: [],
-  };
-  const idcardimg = {
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }) {
-      if (file.status !== "uploading") {
-        console.log(file, fileList);
-      }
-    },
-    defaultFileList: [],
-  };
   return (
     <Router>
       <div className="navbar-container">
         <div className="gradient-logo">ProjectLauncher</div>
         <div>
-          <Link to="/create-project">
-            <button className="btn">สร้างโครงการ</button>
+          <Link to="/view-project">
+            <button className="btn">ดูข้อมูลโครงการ</button>
           </Link>
           <Link to="/edit-profile">
             <button className="btn">แก้ไขข้อมูลบัญชี</button>
@@ -41,7 +24,7 @@ function App() {
         </div>
       </div>
       <Routes>
-        <Route path="/create-project" element={<CreateProject />} />
+        <Route path="/view-project" element={<ViewProject />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/" element={<RegisterProjectOwner />} />
       </Routes>

@@ -1,29 +1,76 @@
-import { Form, Input, Button, DatePicker, Upload } from "antd";
+import { Form, Input, Button, DatePicker, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const RegisterProjectOwner = () => {
-  const bookbankimg = {
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }) {
-      if (file.status !== "uploading") {
-        console.log(file, fileList);
-      }
-    },
-    defaultFileList: [],
-  };
-  const idcardimg = {
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }) {
-      if (file.status !== "uploading") {
-        console.log(file, fileList);
-      }
-    },
-    defaultFileList: [],
+  // const bookbankimg = {
+  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  //   onChange({ file, fileList }) {
+  //     if (file.status !== "uploading") {
+  //       console.log(file, fileList);
+  //     }
+  //   },
+  //   defaultFileList: [],
+  // };
+  // const idcardimg = {
+  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  //   onChange({ file, fileList }) {
+  //     if (file.status !== "uploading") {
+  //       console.log(file, fileList);
+  //     }
+  //   },
+  //   defaultFileList: [],
+  // };
+
+  const handleSubmit = async (value) => {
+    const bd = value["birthday"].format("DD-MM-YYYY");
+    const obj = JSON.stringify({
+      user_info: {
+        username: value.username,
+        password: value.password,
+        firstname: value.firstname,
+        lastname: value.lastname,
+        birthday: bd,
+        email: value.email,
+        house_no: value.house_no,
+        subdistrict: value.subdistrict,
+        district: value.district,
+        province: value.province,
+        postcode: value.postcode,
+      },
+      verification_info: {
+        citizen_id: value.citizen_id,
+        laser_id: value.laser_id,
+        bank_name: value.bank_name,
+        account_number: value.account_number,
+        acc_firstname: value.acc_firstname,
+        acc_lastname: value.acc_lastname,
+        book_bank_image_url: "http/fsadfasdfdsaf",
+        id_card_imaage_url: "http/kfasdfasdfds",
+      },
+    });
+
+    // console.log(process.env.REACT_APP_HOST);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_HOST}/owner/register`,
+        obj
+      );
+      message.success("การเปลี่ยนข้อมูลเสร็จสมบูรณ์");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="form-container">
       <h1>ลงทะเบียนสำหรับเจ้าของโครงการ</h1>
-      <Form labelCol={{ span: 6 }}>
+      <Form
+        labelCol={{ span: 6 }}
+        onFinish={(value) => {
+          handleSubmit(value);
+        }}
+      >
         <div className="section">
           <div className="row">
             <div className="two-col">
@@ -108,13 +155,22 @@ const RegisterProjectOwner = () => {
           </div>
           <div className="row">
             <div className="two-col">
-              <Form.Item name="idCardNo" label="เลขบัตรประชาชน">
+              <Form.Item name="citizen_id" label="เลขบัตรประชาชน">
                 <Input />
               </Form.Item>
             </div>
+
             <div className="two-col right-col">
-              <Form.Item name="birthDate" label="วัน เดือน ปีเกิด">
-                <DatePicker />
+              <Form.Item name="laser_id" label="รหัสหลังบัตรประชาชน">
+                <Input />
+              </Form.Item>
+            </div>
+          </div>
+          <div className="row">
+            {" "}
+            <div className="two-col">
+              <Form.Item name="birthday" label="วัน เดือน ปีเกิด">
+                <DatePicker format="DD-MM-YYYY" />
               </Form.Item>
             </div>
           </div>
@@ -124,7 +180,7 @@ const RegisterProjectOwner = () => {
           <hr></hr>
         </div>
         <div className="section">
-          <Form.Item name="address" label="ที่อยู่" className="one-col">
+          <Form.Item name="house_no" label="ที่อยู่" className="one-col">
             <Input />
           </Form.Item>
           <div className="row">
@@ -157,27 +213,33 @@ const RegisterProjectOwner = () => {
           <hr></hr>
         </div>
         <div className="section">
-          <Form.Item
-            name="bankAccountName"
-            label="ชื่อบัญชีธนาคาร"
-            className="one-col"
-          >
-            <Input />
-          </Form.Item>
           <div className="row">
             <div className="two-col">
-              <Form.Item name="bookbanktNo" label="เลขที่บัญชี">
+              <Form.Item name="acc_firstname" label="ชื่อ">
                 <Input />
               </Form.Item>
             </div>
             <div className="two-col right-col">
-              <Form.Item name="bank" label="ธนาคาร">
+              <Form.Item name="acc_lastname" label="นามสกุล">
+                <Input />
+              </Form.Item>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="two-col">
+              <Form.Item name="account_number" label="เลขที่บัญชี">
+                <Input />
+              </Form.Item>
+            </div>
+            <div className="two-col right-col">
+              <Form.Item name="bank_name" label="ธนาคาร">
                 <Input />
               </Form.Item>
             </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <h2>อัพโหลดภาพถ่าย</h2>
           <hr></hr>
         </div>
@@ -206,14 +268,9 @@ const RegisterProjectOwner = () => {
               </Form.Item>
             </div>
           </div>
-        </div>
+        </div> */}
         <Form.Item className="btn-container">
-          <button
-            className="btn fill-btn"
-            htmlType="submit"
-            onClick={() => {}}
-            block
-          >
+          <button className="btn fill-btn" type="submit" block="true">
             สงทะเบียน
           </button>
         </Form.Item>
