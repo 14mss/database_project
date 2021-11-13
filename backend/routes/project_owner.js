@@ -7,15 +7,19 @@ const router = express.Router();
 
 router.get("/:username", async (req, res) => {
   const { username } = req.params;
-  const {user_id} = await project_owner_service.getProjectOwnerId(username);
+  const { user_id } = await project_owner_service.getProjectOwnerId(username);
   const user_info = await project_owner_service.getProjectOwnerByUsername(
     username
   );
-  const verification_info = await project_owner_service.getVerificationInfoById(user_id);
-  return res.json({
-    user_info:user_info,
-    verification_info:verification_info
-  }).status(200);
+  const verification_info = await project_owner_service.getVerificationInfoById(
+    user_id
+  );
+  return res
+    .json({
+      user_info: user_info,
+      verification_info: verification_info,
+    })
+    .status(200);
 });
 
 router.post("/register", async (req, res) => {

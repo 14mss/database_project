@@ -48,9 +48,11 @@ const getProjectOwnerByUsername = async (username) => {
 };
 
 const getVerificationInfoById = async (user_id) => {
-    const [rows,fields] = await mysql_connection.query(`SELECT * FROM VERIFICATION_INFO WHERE user_id="${user_id}"`);
-    return rows[0];
-}
+  const [rows, fields] = await mysql_connection.query(
+    `SELECT * FROM VERIFICATION_INFO WHERE user_id="${user_id}"`
+  );
+  return rows[0];
+};
 
 const getProjectOwnerId = async (username) => {
   const [rows, fields] = await mysql_connection.query(
