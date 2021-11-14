@@ -85,6 +85,14 @@ hr {
   margin: 0px 64px;
 }
 
+.project-container {
+  border: 1px solid #8157a1;
+  box-sizing: border-box;
+  border-radius: 12px;
+  /* padding: 72px 72px 36px 72px; */
+  /* margin: 0px 64px; */
+}
+
 .section {
   padding: 30px 0px;
 }

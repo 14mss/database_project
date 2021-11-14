@@ -3,10 +3,12 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "antd/lib/form/Form";
+import moment from "moment";
 
 const EditProfile = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [verificationInfo, setVerificationInfo] = useState(null);
+  const [day, setDay] = useState(null);
 
   const [form] = Form.useForm();
   // useEffect(() => {
@@ -25,7 +27,7 @@ const EditProfile = () => {
   // }, []);
 
   const handleSubmit = async (value) => {
-    const bd = value["birthday"].format("DD-MM-YYYY");
+    const bd = value["birthday"].format("YYYY-MM-DD");
     const obj = {
       user_info: {
         username: value.username,
@@ -53,7 +55,7 @@ const EditProfile = () => {
     };
 
     try {
-      const res = await axios.post(
+      const res = await axios.patch(
         `${process.env.REACT_APP_HOST}/owner/edit`,
         obj
       );
@@ -64,12 +66,16 @@ const EditProfile = () => {
   };
   const handleSubmitUsername = async (value) => {
     try {
-      const { user_info, verification_info } = await axios.get(
+      const { data } = await axios.get(
         `${process.env.REACT_APP_HOST}/owner/${value.username}`
       );
+      const { user_info, verification_info } = data;
+      const today = moment(user_info.birthday, "YYYY-MM-DD");
+      setDay(today);
       setUserInfo(user_info);
       setVerificationInfo(verification_info);
-      // message.success("การลงทะเบียนเสร็จสมบูรณ์");
+      // message.success("yay");
+      // console.log(verification_info);
     } catch (e) {
       console.log(e);
     }
@@ -79,7 +85,7 @@ const EditProfile = () => {
     const username = form.getFieldValue("username");
     const obj = { username: username };
     try {
-      const res = await axios.post(
+      const res = await axios.delete(
         `${process.env.REACT_APP_HOST}/owner/delete`,
         obj
       );
@@ -90,7 +96,7 @@ const EditProfile = () => {
     }
   };
 
-  if (!userInfo) {
+  if (!userInfo || !verificationInfo || !day) {
     return (
       <div className="form-container">
         <Form
@@ -105,7 +111,7 @@ const EditProfile = () => {
           </Form.Item>
 
           <Form.Item className="btn-container">
-            <button className="btn fill-btn" htmlType="submit" block>
+            <button className="btn fill-btn" type="submit" block="true">
               ค้นหา
             </button>
           </Form.Item>
@@ -154,7 +160,6 @@ const EditProfile = () => {
                 <Form.Item
                   name="password"
                   label="รหัสผ่าน"
-                  initialValue={userInfo.password}
                   rules={[
                     {
                       pattern: new RegExp(
@@ -233,7 +238,7 @@ const EditProfile = () => {
                 <Form.Item
                   name="laser_id"
                   label="รหัสหลังบัตร"
-                  initialValue={userInfo.laser_id}
+                  initialValue={verificationInfo.laser_id}
                 >
                   <Input />
                 </Form.Item>
@@ -244,10 +249,9 @@ const EditProfile = () => {
                 <Form.Item
                   name="birthday"
                   label="วัน เดือน ปีเกิด"
-                  format="DD-MM-YYYY"
-                  initialValue={userInfo.birthday}
+                  initialValue={day}
                 >
-                  <DatePicker />
+                  <DatePicker format="YYYY-MM-DD" />
                 </Form.Item>
               </div>
             </div>
@@ -354,15 +358,23 @@ const EditProfile = () => {
               </div>
             </div>
           </div>
-          <button className="btn fill-btn" onClick={handleDelete} block="true">
-            ลบบัญชี
-          </button>
+          <div className="row" style={{ justifyContent: "right" }}>
+            <div className="btn-container">
+              <button
+                className="btn fill-btn"
+                onClick={handleDelete}
+                block="true"
+              >
+                ลบบัญชี
+              </button>
+            </div>
 
-          <Form.Item className="btn-container">
-            <button className="btn fill-btn" type="submit" block="true">
-              บันทึก
-            </button>
-          </Form.Item>
+            <Form.Item className="btn-container">
+              <button className="btn fill-btn" type="submit" block="true">
+                บันทึก
+              </button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     );
