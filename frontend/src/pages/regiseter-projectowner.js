@@ -25,7 +25,8 @@ const RegisterProjectOwner = () => {
 
   const handleSubmit = async (value) => {
     const bd = value["birthday"].format("DD-MM-YYYY");
-    const obj = JSON.stringify({
+
+    const obj = {
       user_info: {
         username: value.username,
         password: value.password,
@@ -49,9 +50,13 @@ const RegisterProjectOwner = () => {
         book_bank_image_url: "http/fsadfasdfdsaf",
         id_card_imaage_url: "http/kfasdfasdfds",
       },
-    });
+    };
+    // const obj = {
+    //   user_info: u,
+    //   verification_info: v,
+    // };
+    // console.log(obj);
 
-    // console.log(process.env.REACT_APP_HOST);
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_HOST}/owner/register`,

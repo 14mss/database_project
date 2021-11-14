@@ -26,7 +26,7 @@ const EditProfile = () => {
 
   const handleSubmit = async (value) => {
     const bd = value["birthday"].format("DD-MM-YYYY");
-    const obj = JSON.stringify({
+    const obj = {
       user_info: {
         username: value.username,
         password: value.password,
@@ -50,7 +50,7 @@ const EditProfile = () => {
         book_bank_image_url: "http/fsadfasdfdsaf",
         id_card_imaage_url: "http/kfasdfasdfds",
       },
-    });
+    };
 
     try {
       const res = await axios.post(
@@ -77,7 +77,7 @@ const EditProfile = () => {
 
   const handleDelete = async () => {
     const username = form.getFieldValue("username");
-    const obj = JSON.stringify({ username: username });
+    const obj = { username: username };
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_HOST}/owner/delete`,
