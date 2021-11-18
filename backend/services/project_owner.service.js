@@ -28,12 +28,12 @@ const createProjectOwner = async (user_info, verification_info) => {
   try {
     await mysql_connection.query(`insert into PROJECT_OWNER 
                                     VALUES ("${user_id}", "${username}", "${password}", "${firstname}", "${lastname}", "${birthday}",
-                                            "${email}", "in progress", "${house_no}", "${province}", "${district}", "${subdistrict}",
+                                            "${email}", "${process.env.INITIAL_STSTUS}", "${house_no}", "${province}", "${district}", "${subdistrict}",
                                             "${postcode}");`);
     await mysql_connection.query(`insert into VERIFICATION_INFO 
                                        VALUES ("${citizen_id}", "${laser_id}", "${bank_name}", "${account_number}", 
                                                 "${acc_firstname}", "${acc_lastname}", "${book_bank_image_url}",
-                                                "${id_card_image_url}", "in progress", "${user_id}");`);
+                                                "${id_card_image_url}", "${process.env.INITIAL_STSTUS}", "${user_id}");`);
     return "success";
   } catch (err) {
     throw err;
@@ -110,7 +110,7 @@ const updateProjectOwnerInfo = async (user_info, verification_info) => {
         UPDATE VERIFICATION_INFO 
         SET citizen_id="${citizen_id}", laser_id="${laser_id}", bank_name="${bank_name}",
         account_number="${account_number}", acc_firstname="${acc_firstname}", acc_lastname="${acc_lastname}",
-        book_bank_image_url="${book_bank_image_url}", id_card_image_url="${id_card_image_url}", status="in progress"
+        book_bank_image_url="${book_bank_image_url}", id_card_image_url="${id_card_image_url}", status="${process.env.INITIAL_STSTUS}"
         WHERE user_id="${user_id}";
       `);
   } catch (err) {

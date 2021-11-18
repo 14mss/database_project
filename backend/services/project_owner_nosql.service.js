@@ -6,7 +6,9 @@ const getProjectOwnerByUsername = async (username) => {
 };
 
 const createProjectOwner = async (user_info, verification_info) => {
-  const insert_data = { ...user_info, verification_info: verification_info };
+  const new_user_info = {...user_info, verify_email_status: String(process.env.INITIAL_STATUS)}
+  const new_verification_info = {...verification_info, ststus: String(process.env.INITIAL_STATUS)}
+  const insert_data = { ...new_user_info, verification_info: new_verification_info };
   console.log(insert_data);
   try {
     await ProjectOwner.create(insert_data);
@@ -14,7 +16,6 @@ const createProjectOwner = async (user_info, verification_info) => {
     throw err;
   }
 };
-
 const insertProject = async (id, project_info) => {
   const date = new Date();
   const start_date = `${date.getFullYear()}-${
