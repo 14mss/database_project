@@ -18,21 +18,17 @@ router.get("/:username", async (req, res) => {
   }
 });
 
-router.get("/project/:username", async (req,res)=>{
-  const {username} = req.params;
+router.get("/project/:username", async (req, res) => {
+  const { username } = req.params;
   try {
     const project = await mongo_service.getAllproject(username);
     if (project.length === 0) {
       return res.send("not found").status(404);
-    } 
-    return res.json({project}).status(200);
-  }
-  catch(err) {
-
+    }
+    return res.json({ project }).status(200);
+  } catch (err) {
     return res.send("unsuccess").status(400);
-
   }
-
 });
 
 router.post("/create", async (req, res) => {
@@ -61,7 +57,6 @@ router.post("/project", async (req, res) => {
     await mongo_service.insertProject(_id, project_info);
     res.send("success").status(201);
   } catch (err) {
-    console.log(err);
     return res.send("unsuccess").status(400);
   }
 });

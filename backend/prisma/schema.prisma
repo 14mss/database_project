@@ -11,35 +11,35 @@ datasource db {
 }
 
 model PROJECT_OWNER {
-  user_id             String              @id
-  username            String              @unique @db.VarChar(16)
-  password            String              @db.VarChar(100)
-  firstname           String              @db.VarChar(45)
-  lastname            String              @db.VarChar(45)
+  user_id             String             @id
+  username            String             @unique @db.VarChar(16)
+  password            String             @db.VarChar(100)
+  firstname           String             @db.VarChar(45)
+  lastname            String             @db.VarChar(45)
   birthday            DateTime
-  email               String              @db.VarChar(255)
-  verify_email_status String              @db.VarChar(20)
-  house_no            String              @db.VarChar(10)
-  province            String              @db.VarChar(45)
-  district            String              @db.VarChar(45)
-  subdistrict         String              @db.VarChar(45)
-  postcode            String              @db.VarChar(5)
+  email               String             @db.VarChar(255)
+  verify_email_status String             @db.VarChar(20)
+  house_no            String             @db.VarChar(10)
+  province            String             @db.VarChar(45)
+  district            String             @db.VarChar(45)
+  subdistrict         String             @db.VarChar(45)
+  postcode            String             @db.VarChar(5)
   VERIFICATION_INFO   VERIFICATION_INFO?
   PROJECT             PROJECT[]
 }
 
 model VERIFICATION_INFO {
-  citizen_id           String        @id @db.VarChar(13)
-  laser_id             String        @db.VarChar(12)
-  bank_name            String        @db.VarChar(45)
-  account_number       String        @db.VarChar(20)
-  acc_firstname        String        @db.VarChar(45)
-  acc_lastname         String        @db.VarChar(45)
+  citizen_id          String        @id @db.VarChar(13)
+  laser_id            String        @db.VarChar(12)
+  bank_name           String        @db.VarChar(45)
+  account_number      String        @db.VarChar(20)
+  acc_firstname       String        @db.VarChar(45)
+  acc_lastname        String        @db.VarChar(45)
   book_bank_image_url String        @db.VarChar(2048)
-  id_card_image_url    String        @db.VarChar(2048)
-  status               String        @db.VarChar(20)
-  user_id              String
-  project_owner        PROJECT_OWNER @relation(fields: [user_id], references: [user_id])
+  id_card_image_url   String        @db.VarChar(2048)
+  status              String        @db.VarChar(20)
+  user_id             String        @unique
+  project_owner       PROJECT_OWNER @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
 }
 
@@ -65,5 +65,5 @@ model PROJECT {
   status             String        @db.VarChar(20)
   donation_amount    Float         @default(0.00)
   user_id            String
-  project_owner      PROJECT_OWNER @relation(fields: [user_id], references: [user_id])
+  project_owner      PROJECT_OWNER @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 }

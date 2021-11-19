@@ -6,9 +6,18 @@ const getProjectOwnerByUsername = async (username) => {
 };
 
 const createProjectOwner = async (user_info, verification_info) => {
-  const new_user_info = {...user_info, verify_email_status: String(process.env.INITIAL_STATUS)}
-  const new_verification_info = {...verification_info, ststus: String(process.env.INITIAL_STATUS)}
-  const insert_data = { ...new_user_info, verification_info: new_verification_info };
+  const new_user_info = {
+    ...user_info,
+    verify_email_status: String(process.env.INITIAL_STATUS),
+  };
+  const new_verification_info = {
+    ...verification_info,
+    status: String(process.env.INITIAL_STATUS),
+  };
+  const insert_data = {
+    ...new_user_info,
+    verification_info: new_verification_info,
+  };
   console.log(insert_data);
   try {
     await ProjectOwner.create(insert_data);
@@ -35,11 +44,12 @@ const insertProject = async (id, project_info) => {
   }
 };
 
-const getAllproject = async  (username) => {
-  const {project} = await ProjectOwner.findOne({ likes: { $username: username } });
+const getAllproject = async (username) => {
+  const { project } = await ProjectOwner.findOne({
+    likes: { $username: username },
+  });
   return project;
-
-}
+};
 
 module.exports = {
   getProjectOwnerByUsername,
