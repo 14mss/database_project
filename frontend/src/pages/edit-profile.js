@@ -1,34 +1,21 @@
-import { Form, Input, Button, DatePicker, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { Form, Input, DatePicker, message } from "antd";
+import { useState } from "react";
 import axios from "axios";
-import { useForm } from "antd/lib/form/Form";
+
 import moment from "moment";
 
 const EditProfile = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [verificationInfo, setVerificationInfo] = useState(null);
   const [day, setDay] = useState(null);
+  const [oldUsername, setOldUsername] = useState(null);
 
   const [form] = Form.useForm();
-  // useEffect(() => {
-  //   const fetchAllData = async () => {
-  //     try {
-  //       const { user_info, verification_info } = await axios.get(
-  //         "http://localhost:5000/owner/username"
-  //       );
-  //       setUserInfo(user_info);
-  //       setVerificationInfo(verification_info);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
-  //   fetchAllData();
-  // }, []);
 
   const handleSubmit = async (value) => {
     const bd = value["birthday"].format("YYYY-MM-DD");
     const obj = {
+      username: oldUsername,
       user_info: {
         username: value.username,
         password: value.password,
@@ -55,27 +42,25 @@ const EditProfile = () => {
     };
 
     try {
-      const res = await axios.patch(
-        `${process.env.REACT_APP_HOST}/owner/edit`,
-        obj
-      );
+      await axios.patch(`${process.env.REACT_APP_HOST}/owner/edit`, obj);
       message.success("การเปลี่ยนข้อมูลเสร็จสมบูรณ์");
     } catch (err) {
       console.log(err);
     }
   };
-  const handleSubmitUsername = async (value) => {
+
+  const handleGetData = async (value) => {
     try {
       const { data } = await axios.get(
         `${process.env.REACT_APP_HOST}/owner/${value.username}`
       );
+
       const { user_info, verification_info } = data;
       const today = moment(user_info.birthday, "YYYY-MM-DD");
       setDay(today);
       setUserInfo(user_info);
       setVerificationInfo(verification_info);
-      // message.success("yay");
-      // console.log(verification_info);
+      setOldUsername(user_info.username);
     } catch (e) {
       console.log(e);
     }
@@ -83,12 +68,11 @@ const EditProfile = () => {
 
   const handleDelete = async () => {
     const username = form.getFieldValue("username");
-    const obj = { username: username };
+
     try {
-      const res = await axios.delete(
-        `${process.env.REACT_APP_HOST}/owner/delete`,
-        obj
-      );
+      await axios.delete(`${process.env.REACT_APP_HOST}/owner/delete`, {
+        data: { username: username },
+      });
 
       message.success("การลบบัญชีเสร็จสมบูรณ์");
     } catch (e) {
@@ -96,14 +80,14 @@ const EditProfile = () => {
     }
   };
 
-  if (!userInfo || !verificationInfo || !day) {
+  if (!userInfo || !verificationInfo || !day || !oldUsername) {
     return (
       <div className="form-container">
         <Form
           form={form}
           labelCol={{ span: 6 }}
           onFinish={(value) => {
-            handleSubmitUsername(value);
+            handleGetData(value);
           }}
         >
           <Form.Item name="username" label="ชื่อบัญชีผู้ใช้">
@@ -160,6 +144,7 @@ const EditProfile = () => {
                 <Form.Item
                   name="password"
                   label="รหัสผ่าน"
+                  initialValue={userInfo.password}
                   rules={[
                     {
                       pattern: new RegExp(
@@ -178,7 +163,7 @@ const EditProfile = () => {
                 <Form.Item
                   name="confirm"
                   label="ยืนยันรหัสผ่าน"
-                  initialValue={userInfo.confirm}
+                  initialValue={userInfo.password}
                   dependencies={["password"]}
                   hasFeedback
                   rules={[
@@ -359,16 +344,6 @@ const EditProfile = () => {
             </div>
           </div>
           <div className="row" style={{ justifyContent: "right" }}>
-            <div className="btn-container">
-              <button
-                className="btn fill-btn"
-                onClick={handleDelete}
-                block="true"
-              >
-                ลบบัญชี
-              </button>
-            </div>
-
             <Form.Item className="btn-container">
               <button className="btn fill-btn" type="submit" block="true">
                 บันทึก
@@ -376,6 +351,11 @@ const EditProfile = () => {
             </Form.Item>
           </div>
         </Form>
+        <div className="btn-container">
+          <button className="btn fill-btn" onClick={handleDelete} block="true">
+            ลบบัญชี
+          </button>
+        </div>
       </div>
     );
   }
