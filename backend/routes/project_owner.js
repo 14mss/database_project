@@ -42,18 +42,14 @@ router.post("/register", async (req, res) => {
 });
 
 router.patch("/edit", async (req, res) => {
-  const { user_info, verification_info } = req.body;
-  const { username, password } = user_info;
-  const { user_id } = await project_owner_service.getProjectOwnerId(username);
+  const { user_info, verification_info, username } = req.body;
+  const user_id = await project_owner_service.getProjectOwnerId(username);
 
   if (!user_id) {
     return res.send("can not find project owner's id");
   }
-  const salt = await bcrypt.genSalt(Number(process.env.SALT));
-  const hash_password = await bcrypt.hash(password, salt);
   const new_user_info = {
-    user_id: user_id,
-    password: hash_password,
+    user_id: user_id["user_id"],
     ...user_info,
   };
 
