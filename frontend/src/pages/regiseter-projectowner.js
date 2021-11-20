@@ -1,7 +1,5 @@
-import { Form, Input, Button, DatePicker, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Form, Input, DatePicker, message } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 const RegisterProjectOwner = () => {
   const [form] = Form.useForm();
@@ -10,6 +8,7 @@ const RegisterProjectOwner = () => {
     const value = form.getFieldValue();
 
     const bd = value["birthday"].format("YYYY-MM-DD");
+    console.log(value.username);
 
     const obj = {
       user_info: {
@@ -115,20 +114,7 @@ const RegisterProjectOwner = () => {
           </div>
           <div className="row">
             <div className="two-col">
-              <Form.Item
-                name="password"
-                label="รหัสผ่าน"
-                rules={[
-                  {
-                    pattern: new RegExp(
-                      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/g
-                    ),
-                    message:
-                      "รหัสผ่านจะต้องประกอบด้วย ตัวอักษรภาษาอังกฤษ พิมพ์เล็ก พิมพ์ใหญ่ และตัวเลข",
-                  },
-                ]}
-                hasFeedback
-              >
+              <Form.Item name="password" label="รหัสผ่าน" hasFeedback>
                 <Input.Password />
               </Form.Item>
             </div>

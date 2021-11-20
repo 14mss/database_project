@@ -1,15 +1,5 @@
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  Upload,
-  Radio,
-  Select,
-  message,
-} from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { Form, Input, DatePicker, Radio, Select, message } from "antd";
+
 import axios from "axios";
 
 const { Option } = Select;
@@ -103,28 +93,7 @@ const CreateProject = () => {
             <Input />
           </Form.Item>
         </div>
-        {/* <div>
-          <h2>อัพโหลดรูปภาพและวิดีโอ</h2>
-          <hr></hr>
-        </div>
-        <div className="section">
-          <Form.Item
-            name="ProjectImage"
-            label="รูปภาพโครงการ"
-            className="upload one-col"
-          >
-            <Upload {...projectimg}>
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
-          </Form.Item>
-          <Form.Item
-            name="videoUrl"
-            label="ลิงก์วิดีโอโครงการ"
-            className="two-col"
-          >
-            <Input />
-          </Form.Item>
-        </div> */}
+
         <Form.Item className="btn-container">
           <button className="btn fill-btn" type="submit" block="true">
             สร้างโครงการ

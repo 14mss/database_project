@@ -1,8 +1,7 @@
-import { Form, Input, Button, DatePicker, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { Form, Input, DatePicker, message } from "antd";
+import { useState } from "react";
 import axios from "axios";
-import { useForm } from "antd/lib/form/Form";
+
 import moment from "moment";
 
 const EditProfile = () => {

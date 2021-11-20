@@ -1,15 +1,5 @@
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  Upload,
-  Radio,
-  Select,
-  message,
-} from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { Form, Input } from "antd";
+import { useState } from "react";
 import axios from "axios";
 
 const ViewProject = () => {
@@ -44,7 +34,6 @@ const ViewProject = () => {
     return (
       <div className="form-container">
         <Form
-          // form={form}
           labelCol={{ span: 6 }}
           onFinish={(value) => {
             handleSubmitUsername(value);
