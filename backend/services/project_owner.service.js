@@ -26,14 +26,17 @@ const createProjectOwner = async (user_info, verification_info) => {
     book_bank_image_url,
   } = verification_info;
   try {
-    await mysql_connection.query(`insert into PROJECT_OWNER 
-                                    VALUES ("${user_id}", "${username}", "${password}", "${firstname}", "${lastname}", "${birthday}",
-                                            "${email}", "${process.env.INITIAL_STSTUS}", "${house_no}", "${province}", "${district}", "${subdistrict}",
+    await mysql_connection.query(`INSERT INTO PROJECT_OWNER (user_id, username, password, firstname, lastname, birthday,
+                                                             email, house_no, province, district, subdistrict, postcode)
+                                    VALUES ("${user_id}","${username}", "${password}", "${firstname}", "${lastname}", "${birthday}",
+                                            "${email}", "${house_no}", "${province}", "${district}", "${subdistrict}",
                                             "${postcode}");`);
-    await mysql_connection.query(`insert into VERIFICATION_INFO 
+    await mysql_connection.query(`INSERT INTO VERIFICATION_INFO (citizen_id, laser_id, bank_name, account_number,
+                                                                acc_firstname, acc_lastname,
+                                                                book_bank_image_url, id_card_image_url,user_id)
                                        VALUES ("${citizen_id}", "${laser_id}", "${bank_name}", "${account_number}", 
                                                 "${acc_firstname}", "${acc_lastname}", "${book_bank_image_url}",
-                                                "${id_card_image_url}", "${process.env.INITIAL_STSTUS}", "${user_id}");`);
+                                                "${id_card_image_url}" , "${user_id}");`);
     return "success";
   } catch (err) {
     throw err;
@@ -42,23 +45,26 @@ const createProjectOwner = async (user_info, verification_info) => {
 
 const getProjectOwnerByUsername = async (username) => {
   const [rows, fields] = await mysql_connection.query(
-    `SELECT * FROM PROJECT_OWNER WHERE username = "${username}" limit 1;`
+    `SELECT username, firstname, lastname, birthday, 
+    email, house_no, province, district, subdistrict, postcode 
+    FROM PROJECT_OWNER WHERE username = "${username}" limit 1;`
   );
   return rows[0];
 };
 
 const getVerificationInfoById = async (user_id) => {
   const [rows, fields] = await mysql_connection.query(
-    `SELECT * FROM VERIFICATION_INFO WHERE user_id="${user_id}"`
+    `SELECT citizen_id, laser_id, bank_name, account_number,
+     acc_firstname, acc_lastname, book_bank_image_url, id_card_image_url
+     FROM VERIFICATION_INFO WHERE user_id="${user_id}"`
   );
   return rows[0];
 };
 
 const getProjectOwnerId = async (username) => {
   const [rows, fields] = await mysql_connection.query(
-    `SELECT user_id FROM PROJECT_OWNER WHERE username = "${username}" limit 1`
+    `SELECT user_id FROM PROJECT_OWNER WHERE username="${username}" limit 1`
   );
-
   return rows[0];
 };
 

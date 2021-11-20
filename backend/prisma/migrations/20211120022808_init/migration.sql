@@ -7,7 +7,7 @@ CREATE TABLE `PROJECT_OWNER` (
     `lastname` VARCHAR(45) NOT NULL,
     `birthday` DATETIME(3) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
-    `verify_email_status` VARCHAR(20) NOT NULL,
+    `verify_email_status` VARCHAR(20) NOT NULL DEFAULT 'in progress',
     `house_no` VARCHAR(10) NOT NULL,
     `province` VARCHAR(45) NOT NULL,
     `district` VARCHAR(45) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `VERIFICATION_INFO` (
     `acc_lastname` VARCHAR(45) NOT NULL,
     `book_bank_image_url` VARCHAR(2048) NOT NULL,
     `id_card_image_url` VARCHAR(2048) NOT NULL,
-    `status` VARCHAR(20) NOT NULL,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'in progress',
     `user_id` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `VERIFICATION_INFO_user_id_key`(`user_id`),
@@ -56,7 +56,7 @@ CREATE TABLE `PROJECT` (
     `due_date` DATETIME(3) NOT NULL,
     `crowd_funding_type` VARCHAR(10) NOT NULL,
     `funding_goal` DOUBLE NOT NULL,
-    `status` VARCHAR(20) NOT NULL,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'unpublished',
     `donation_amount` DOUBLE NOT NULL DEFAULT 0.00,
     `user_id` VARCHAR(191) NOT NULL,
 

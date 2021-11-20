@@ -31,7 +31,7 @@ router.get("/project/:username", async (req, res) => {
   }
 });
 
-router.post("/create", async (req, res) => {
+router.post("/register", async (req, res) => {
   const user_id = uuidv4();
   const { user_info, verification_info } = req.body;
   const { password, ...rest } = user_info;

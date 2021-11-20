@@ -11,14 +11,14 @@ datasource db {
 }
 
 model PROJECT_OWNER {
-  user_id             String             @id
+  user_id             String             @id @default(uuid())
   username            String             @unique @db.VarChar(16)
   password            String             @db.VarChar(100)
   firstname           String             @db.VarChar(45)
   lastname            String             @db.VarChar(45)
   birthday            DateTime
   email               String             @db.VarChar(255)
-  verify_email_status String             @db.VarChar(20)
+  verify_email_status String             @default("in progress") @db.VarChar(20)
   house_no            String             @db.VarChar(10)
   province            String             @db.VarChar(45)
   district            String             @db.VarChar(45)
@@ -37,7 +37,7 @@ model VERIFICATION_INFO {
   acc_lastname        String        @db.VarChar(45)
   book_bank_image_url String        @db.VarChar(2048)
   id_card_image_url   String        @db.VarChar(2048)
-  status              String        @db.VarChar(20)
+  status              String        @default("in progress") @db.VarChar(20)
   user_id             String        @unique
   project_owner       PROJECT_OWNER @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
@@ -62,7 +62,7 @@ model PROJECT {
   due_date           DateTime
   crowd_funding_type String        @db.VarChar(10)
   funding_goal       Float
-  status             String        @db.VarChar(20)
+  status             String        @default("unpublished") @db.VarChar(20)
   donation_amount    Float         @default(0.00)
   user_id            String
   project_owner      PROJECT_OWNER @relation(fields: [user_id], references: [user_id], onDelete: Cascade)

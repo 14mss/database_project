@@ -70,13 +70,13 @@ router.patch("/edit", async (req, res) => {
 
 router.delete("/delete", async (req, res) => {
   const { username } = req.body;
-  const { user_id } = await project_owner_service.getProjectOwnerId(username);
+  const user_id = await project_owner_service.getProjectOwnerId(username);
   if (!user_id) {
     return res.send("can not find project owner's id");
   }
 
   try {
-    await project_owner_service.deleteProjectOwner(user_id);
+    await project_owner_service.deleteProjectOwner(user_id["user_id"]);
     return res.send("success").status(200);
   } catch (err) {
     return res.send("unsuccess").status(400);

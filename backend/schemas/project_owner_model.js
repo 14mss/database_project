@@ -155,6 +155,7 @@ const project_owner_schemas = new Schema({
     type: String,
     required: true,
     maxlength: 20,
+    default: "in progress",
   },
   house_no: {
     type: String,

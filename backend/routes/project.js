@@ -12,8 +12,15 @@ router.get("/", (req, res) => {
 router.post("/create", async (req, res) => {
   const project_id = uuidv4();
   const { project_info, username } = req.body;
-  const { user_id } = await project_owner_service.getProjectOwnerId(username);
-  const new_project_info = { user_id, project_id, ...project_info };
+  const user_id = await project_owner_service.getProjectOwnerId(username);
+  if (!user_id) {
+    return res.send("can not find project owner").status(404);
+  }
+  const new_project_info = {
+    user_id: user_id["user_id"],
+    project_id,
+    ...project_info,
+  };
   try {
     await project_service.createProject(new_project_info);
     return res.send("success").status(201);
