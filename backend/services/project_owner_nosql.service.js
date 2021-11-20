@@ -1,7 +1,31 @@
 const ProjectOwner = require("../schemas/project_owner_model");
 
 const getProjectOwnerByUsername = async (username) => {
-  const info = await ProjectOwner.findOne({ likes: { $username: username } });
+  const info = await ProjectOwner.findOne(
+    { likes: { $username: username } },
+    {
+      _id: 0,
+      username: 1,
+      firstname: 1,
+      lastname: 1,
+      birthday: 1,
+      email: 1,
+      house_no: 1,
+      province: 1,
+      district: 1,
+      postcode: 1,
+      verification_info: {
+        citizen_id: 1,
+        laser_id: 1,
+        bank_name: 1,
+        account_number: 1,
+        acc_firstname: 1,
+        acc_lastname: 1,
+        book_bank_imahhe_url: 1,
+        id_card_image_url: 1,
+      },
+    }
+  );
   return info;
 };
 
@@ -33,8 +57,7 @@ const insertProject = async (id, project_info) => {
 
 const getAllproject = async (username) => {
   const { project } = await ProjectOwner.findOne({
-    likes: { $username: username },
-  });
+    likes: { $username: username }},);
   return project;
 };
 
