@@ -28,12 +28,12 @@ const ViewProject = () => {
 
   const handleSubmitUsername = async (value) => {
     setUsername(value.username);
-    console.log(value.username);
+
     try {
       const { data } = await axios.get(
         `${process.env.REACT_APP_HOST}/owner2/project/${value.username}`
       );
-      console.log(data.project);
+
       setData(data.project);
     } catch (e) {
       console.log(e);

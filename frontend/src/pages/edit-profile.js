@@ -55,15 +55,13 @@ const EditProfile = () => {
       const { data } = await axios.get(
         `${process.env.REACT_APP_HOST}/owner/${value.username}`
       );
-      console.log(data);
+
       const { user_info, verification_info } = data;
       const today = moment(user_info.birthday, "YYYY-MM-DD");
       setDay(today);
       setUserInfo(user_info);
       setVerificationInfo(verification_info);
       setOldUsername(user_info.username);
-      // message.success("yay");
-      // console.log(verification_info);
     } catch (e) {
       console.log(e);
     }

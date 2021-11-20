@@ -8,7 +8,7 @@ const RegisterProjectOwner = () => {
 
   const handleSubmitMongo = async () => {
     const value = form.getFieldValue();
-    console.log(value);
+
     const bd = value["birthday"].format("YYYY-MM-DD");
 
     const obj = {

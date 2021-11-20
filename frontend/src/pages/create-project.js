@@ -15,15 +15,6 @@ import axios from "axios";
 const { Option } = Select;
 
 const CreateProject = () => {
-  // const projectimg = {
-  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  //   onChange({ file, fileList }) {
-  //     if (file.status !== "uploading") {
-  //       console.log(file, fileList);
-  //     }
-  //   },
-  //   defaultFileList: [],
-  // };
   const handleSubmit = async (value) => {
     const obj = {
       username: value.username,
