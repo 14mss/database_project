@@ -135,7 +135,7 @@ const CreateProject = () => {
           </Form.Item>
         </div> */}
         <Form.Item className="btn-container">
-          <button className="btn fill-btn" htmlType="submit" block>
+          <button className="btn fill-btn" type="submit" block="true">
             สร้างโครงการ
           </button>
         </Form.Item>

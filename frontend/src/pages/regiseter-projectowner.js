@@ -5,24 +5,7 @@ import { useEffect, useState } from "react";
 
 const RegisterProjectOwner = () => {
   const [form] = Form.useForm();
-  // const bookbankimg = {
-  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  //   onChange({ file, fileList }) {
-  //     if (file.status !== "uploading") {
-  //       console.log(file, fileList);
-  //     }
-  //   },
-  //   defaultFileList: [],
-  // };
-  // const idcardimg = {
-  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  //   onChange({ file, fileList }) {
-  //     if (file.status !== "uploading") {
-  //       console.log(file, fileList);
-  //     }
-  //   },
-  //   defaultFileList: [],
-  // };
+
   const handleSubmitMongo = async () => {
     const value = form.getFieldValue();
     console.log(value);
@@ -55,7 +38,7 @@ const RegisterProjectOwner = () => {
     };
 
     try {
-      await axios.post(`${process.env.REACT_APP_HOST}/owner2/create`, obj);
+      await axios.post(`${process.env.REACT_APP_HOST}/owner2/register`, obj);
       message.success("การลงทะเบียนเสร็จสมบูรณ์ (mongo)");
     } catch (err) {
       console.log(err);
@@ -276,36 +259,7 @@ const RegisterProjectOwner = () => {
             </div>
           </div>
         </div>
-        {/* <div>
-          <h2>อัพโหลดภาพถ่าย</h2>
-          <hr></hr>
-        </div>
-        <div className="section">
-          <div className="row">
-            <div className="two-col">
-              <Form.Item
-                name="bookbankImage"
-                label="ภาพถ่ายหน้าสมุดธนาคาร"
-                className="upload"
-              >
-                <Upload {...bookbankimg}>
-                  <Button icon={<UploadOutlined />}>Upload</Button>
-                </Upload>
-              </Form.Item>
-            </div>
-            <div className="two-col right-col">
-              <Form.Item
-                name="idCardImage"
-                label="รูปบัตรประชาชน"
-                className="upload"
-              >
-                <Upload {...idcardimg}>
-                  <Button icon={<UploadOutlined />}>Upload</Button>
-                </Upload>
-              </Form.Item>
-            </div>
-          </div>
-        </div> */}
+
         <Form.Item className="btn-container">
           <button className="btn fill-btn" type="submit" block="true">
             สงทะเบียน
