@@ -29,4 +29,16 @@ router.post("/create", async (req, res) => {
   }
 });
 
+router.post("/amount",async (req,res)=>{
+  const {project_id} = req.body;
+  try{
+    const amount = await project_service.updateDonationAmount(project_id);
+    res.send(amount).end();
+  }
+  catch(err) {
+    res.send("unsuccess");
+  }
+
+})
+
 module.exports = router;

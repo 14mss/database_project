@@ -57,7 +57,8 @@ const insertProject = async (id, project_info) => {
 
 const getAllproject = async (username) => {
   const { project } = await ProjectOwner.findOne({
-    likes: { $username: username }},);
+    likes: { $username: username },
+  });
   return project;
 };
 
