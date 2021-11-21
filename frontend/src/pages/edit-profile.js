@@ -18,7 +18,6 @@ const EditProfile = () => {
       username: oldUsername,
       user_info: {
         username: value.username,
-        password: value.password,
         firstname: value.firstname,
         lastname: value.lastname,
         birthday: bd,
@@ -144,16 +143,6 @@ const EditProfile = () => {
                 <Form.Item
                   name="password"
                   label="รหัสผ่าน"
-                  initialValue={userInfo.password}
-                  rules={[
-                    {
-                      pattern: new RegExp(
-                        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/g
-                      ),
-                      message:
-                        "รหัสผ่านจะต้องประกอบด้วย ตัวอักษรภาษาอังกฤษ พิมพ์เล็ก พิมพ์ใหญ่ และตัวเลข",
-                    },
-                  ]}
                   hasFeedback
                 >
                   <Input.Password />
@@ -163,7 +152,6 @@ const EditProfile = () => {
                 <Form.Item
                   name="confirm"
                   label="ยืนยันรหัสผ่าน"
-                  initialValue={userInfo.password}
                   dependencies={["password"]}
                   hasFeedback
                   rules={[

@@ -68,7 +68,7 @@ const ViewProject = () => {
             <div className="row">วันเริ่มต้นการระดมทุน: {d.start_date}</div>
             <div className="row">วันสิ้นสุดการระดมทุน: {d.due_date}</div>
             <div className="row">
-              เงินระดมทุนรวมในปัจจุบัน: {d.funding_goal}
+              เงินระดมทุนรวมในปัจจุบัน: {d.donation_amount}
             </div>
             <div className="row">เป้าหมายการระดมทุน: {d.funding_goal}</div>
             <div className="row">สถานะโครงการ: {d.status}</div>

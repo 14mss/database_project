@@ -4,43 +4,6 @@ import axios from "axios";
 const RegisterProjectOwner = () => {
   const [form] = Form.useForm();
 
-  const handleSubmitMongo = async () => {
-    const value = form.getFieldValue();
-    const bd = value["birthday"].format("YYYY-MM-DD");
-
-    const obj = {
-      user_info: {
-        username: value.username,
-        password: value.password,
-        firstname: value.firstname,
-        lastname: value.lastname,
-        birthday: bd,
-        email: value.email,
-        house_no: value.house_no,
-        subdistrict: value.subdistrict,
-        district: value.district,
-        province: value.province,
-        postcode: value.postcode,
-      },
-      verification_info: {
-        citizen_id: value.citizen_id,
-        laser_id: value.laser_id,
-        bank_name: value.bank_name,
-        account_number: value.account_number,
-        acc_firstname: value.acc_firstname,
-        acc_lastname: value.acc_lastname,
-        book_bank_image_url: "http/fsadfasdfdsaf",
-        id_card_imaage_url: "http/kfasdfasdfds",
-      },
-    };
-
-    try {
-      await axios.post(`${process.env.REACT_APP_HOST}/owner2/register`, obj);
-      message.success("การลงทะเบียนเสร็จสมบูรณ์ (mongo)");
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleSubmit = async (value) => {
     const bd = value["birthday"].format("YYYY-MM-DD");
@@ -73,7 +36,7 @@ const RegisterProjectOwner = () => {
 
     try {
       await axios.post(`${process.env.REACT_APP_HOST}/owner/register`, obj);
-      message.success("การเปลี่ยนข้อมูลเสร็จสมบูรณ์");
+      message.success("การลงทะเบียนเสร็จสมบูรณ์");
     } catch (err) {
       console.log(err);
     }
@@ -246,13 +209,10 @@ const RegisterProjectOwner = () => {
 
         <Form.Item className="btn-container">
           <button className="btn fill-btn" type="submit" block="true">
-            สงทะเบียน
+            ลงทะเบียน
           </button>
         </Form.Item>
       </Form>
-      <button className="btn fill-btn" onClick={handleSubmitMongo} block="true">
-        Mongo
-      </button>
     </div>
   );
 };
