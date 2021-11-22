@@ -36,7 +36,7 @@ const EditProfile = () => {
         acc_firstname: value.acc_firstname,
         acc_lastname: value.acc_lastname,
         book_bank_image_url: "http/fsadfasdfdsaf",
-        id_card_imaage_url: "http/kfasdfasdfds",
+        id_card_image_url: "http/kfasdfasdfds",
       },
     };
 

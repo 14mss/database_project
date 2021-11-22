@@ -127,7 +127,7 @@ const updateProjectOwnerInfo = async (user_info, verification_info) => {
         UPDATE VERIFICATION_INFO 
         SET citizen_id="${citizen_id}", laser_id="${laser_id}", bank_name="${bank_name}",
         account_number="${account_number}", acc_firstname="${acc_firstname}", acc_lastname="${acc_lastname}",
-        book_bank_image_url="${book_bank_image_url}", id_card_image_url="${id_card_image_url}", status="${process.env.INITIAL_STSTUS}"
+        book_bank_image_url="${book_bank_image_url}", id_card_image_url="${id_card_image_url}", status="${process.env.INITIAL_STATUS}"
         WHERE user_id="${user_id}";
       `);
   } catch (err) {
