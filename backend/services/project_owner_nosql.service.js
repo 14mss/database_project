@@ -4,7 +4,7 @@ const getProjectOwnerByUsername = async (username) => {
   const info = await ProjectOwner.findOne(
     { likes: { $username: username } },
     {
-      _id: 0,
+      _id: 1,
       username: 1,
       firstname: 1,
       lastname: 1,

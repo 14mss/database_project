@@ -51,6 +51,7 @@ router.post("/project", async (req, res) => {
 
   try {
     const { _id } = await mongo_service.getProjectOwnerByUsername(username);
+    
     if (!_id) {
       return res.send("could not find project owner").status(404);
     }
