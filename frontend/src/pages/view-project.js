@@ -64,7 +64,7 @@ const ViewProject = () => {
             <div className="row">ชื่อโครงการ: {d.project_title}</div>
             <div className="row">วัตถุประสงค์: {d.objective}</div>
             <div className="row">
-              หมวดหมู่โครงการ: {category[d.category_id]}
+              หมวดหมู่โครงการ: {category[d.category_id - 1]}
             </div>
             <div className="row">คำอธิบายโครงการ: {d.description}</div>
             <div className="row">ประเภทการระดมทุน: {d.crowd_funding_type}</div>
