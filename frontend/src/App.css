@@ -65,7 +65,7 @@ hr {
   padding: 9px 31px;
   cursor: pointer;
   margin-left: 32px;
-  width: 203px;
+  min-width: 203px;
 }
 
 .fill-btn {

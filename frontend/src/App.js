@@ -20,7 +20,7 @@ function App() {
             <button className="btn">แก้ไขข้อมูลบัญชี</button>
           </Link>
           <Link to="/edit-profile">
-            <button className="btn">ค้นหาเจ้าของโครงการตามสถานะ</button>
+            <button className="btn">ค้นหาเจ้าของโครงการ</button>
           </Link>
           <Link to="/">
             <button className="btn fill-btn">ลงทะเบียน</button>
