@@ -26,7 +26,8 @@ const createProjectOwner = async (user_info, verification_info) => {
     book_bank_image_url,
   } = verification_info;
 
-  await mysql_connection.query(`START TRANSACTION;
+  try {
+    await mysql_connection.query(`START TRANSACTION;
           INSERT INTO PROJECT_OWNER (user_id, username, password, 
             firstname, lastname, birthday, 
             email, house_no, province, district, subdistrict, postcode)
@@ -39,8 +40,11 @@ const createProjectOwner = async (user_info, verification_info) => {
                                        VALUES ("${citizen_id}", "${laser_id}", "${bank_name}", "${account_number}", 
                                                 "${acc_firstname}", "${acc_lastname}", "${book_bank_image_url}",
                                                 "${id_card_image_url}" , "${user_id}"); 
-          ROLLBACK;`);
-  return "success";
+          COMMIT;`);
+    return "success";
+  } catch (err) {
+    throw err;
+  }
 };
 
 const getProjectOwnerByUsername = async (username) => {

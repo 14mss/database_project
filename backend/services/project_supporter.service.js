@@ -22,7 +22,6 @@ const createProjectSupporter = async (user_info) => {
                                             "${email}", "${house_no}", "${province}", "${district}", "${subdistrict}",
                                             "${postcode}");`);
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };

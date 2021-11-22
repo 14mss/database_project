@@ -22,9 +22,8 @@ router.get("/:username", async (req, res) => {
     .status(200);
 });
 
-router.get("/:status", async (req, res) => {
+router.get("/get/:status", async (req, res) => {
   const { status } = req.params;
-
   const user_info = await project_owner_service.getProjectOwnerByStatus(status);
 
   return res
@@ -48,8 +47,10 @@ router.post("/register", async (req, res) => {
     );
     return res.send("success").status(201);
   } catch (err) {
-    console.log(err);
-    return res.send("unsuccess").status(400);
+    return res.status(400).json({
+      status: "error",
+      messsge: "This username already exist",
+    });
   }
 });
 

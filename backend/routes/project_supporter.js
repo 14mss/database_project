@@ -20,7 +20,10 @@ router.post("/register", async (req, res) => {
     await project_supporter_service.createProjectSupporter(new_user_info);
     return res.send("success").end();
   } catch (err) {
-    res.send("unsuccess").end();
+    res.status(400).json({
+      status: "Bad Request",
+      message: "This username already exist",
+    });
   }
 });
 
