@@ -48,8 +48,8 @@ router.post("/register", async (req, res) => {
     return res.send("success").status(201);
   } catch (err) {
     return res.status(400).json({
-      status: "error",
-      messsge: "This username already exist",
+      status: "Bad Request",
+      message: "Username or citizen id already exist",
     });
   }
 });

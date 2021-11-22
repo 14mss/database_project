@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "Bad Request",
-      message: "This username already exist",
+      message: "Username or citizen id already exist",
     });
   }
 });
