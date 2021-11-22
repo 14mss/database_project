@@ -19,7 +19,7 @@ function App() {
           <Link to="/edit-profile">
             <button className="btn">แก้ไขข้อมูลบัญชี</button>
           </Link>
-          <Link to="/edit-profile">
+          <Link to="/view-owner-by-status">
             <button className="btn">ค้นหาเจ้าของโครงการ</button>
           </Link>
           <Link to="/">
