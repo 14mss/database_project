@@ -40,8 +40,9 @@ const createProjectOwner = async (user_info, verification_info) => {
   };
 
   try {
-    await ProjectOwner.insertOne(insert_data);
+    await ProjectOwner.create(insert_data);
   } catch (err) {
+    console.log(err);
     throw err;
   }
 };
