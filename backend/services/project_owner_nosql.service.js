@@ -56,10 +56,14 @@ const insertProject = async (id, project_info) => {
 };
 
 const getAllproject = async (username) => {
-  const { project } = await ProjectOwner.findOne({
-    likes: { $username: username },
-  });
-  return project;
+  try {
+    const { project } = await ProjectOwner.findOne({
+      username: username,
+    });
+    return project;
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = {

@@ -25,22 +25,22 @@ const createProjectOwner = async (user_info, verification_info) => {
     bank_name,
     book_bank_image_url,
   } = verification_info;
-  try {
-    await mysql_connection.query(`INSERT INTO PROJECT_OWNER (user_id, username, password, firstname, lastname, birthday,
-                                                             email, house_no, province, district, subdistrict, postcode)
+
+  await mysql_connection.query(`START TRANSACTION;
+          INSERT INTO PROJECT_OWNER (user_id, username, password, 
+            firstname, lastname, birthday, 
+            email, house_no, province, district, subdistrict, postcode)
                                     VALUES ("${user_id}","${username}", "${password}", "${firstname}", "${lastname}", "${birthday}",
                                             "${email}", "${house_no}", "${province}", "${district}", "${subdistrict}",
-                                            "${postcode}");`);
-    await mysql_connection.query(`INSERT INTO VERIFICATION_INFO (citizen_id, laser_id, bank_name, account_number,
+                                            "${postcode}"); 
+          INSERT INTO VERIFICATION_INFO (citizen_id, laser_id, bank_name, account_number,
                                                                 acc_firstname, acc_lastname,
                                                                 book_bank_image_url, id_card_image_url,user_id)
                                        VALUES ("${citizen_id}", "${laser_id}", "${bank_name}", "${account_number}", 
                                                 "${acc_firstname}", "${acc_lastname}", "${book_bank_image_url}",
-                                                "${id_card_image_url}" , "${user_id}");`);
-    return "success";
-  } catch (err) {
-    throw err;
-  }
+                                                "${id_card_image_url}" , "${user_id}"); 
+          ROLLBACK;`);
+  return "success";
 };
 
 const getProjectOwnerByUsername = async (username) => {
@@ -64,6 +64,13 @@ const getVerificationInfoById = async (user_id) => {
 const getProjectOwnerId = async (username) => {
   const [rows, fields] = await mysql_connection.query(
     `SELECT user_id FROM PROJECT_OWNER WHERE username="${username}" limit 1`
+  );
+  return rows[0];
+};
+
+const getProjectOwnerByStatus = async (status) => {
+  const [rows, fields] = await mysql_connection.query(
+    `CALL showProjectOwnerByStatus("${status}");`
   );
   return rows[0];
 };
@@ -130,4 +137,5 @@ module.exports = {
   getProjectOwnerId,
   updateProjectOwnerInfo,
   deleteProjectOwner,
+  getProjectOwnerByStatus,
 };

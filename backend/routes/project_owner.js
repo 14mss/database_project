@@ -22,6 +22,18 @@ router.get("/:username", async (req, res) => {
     .status(200);
 });
 
+router.get("/:status", async (req, res) => {
+  const { status } = req.params;
+
+  const user_info = await project_owner_service.getProjectOwnerByStatus(status);
+
+  return res
+    .json({
+      user_info: user_info,
+    })
+    .status(200);
+});
+
 router.post("/register", async (req, res) => {
   const user_id = uuidv4();
   const { user_info, verification_info } = req.body;
