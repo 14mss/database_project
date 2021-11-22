@@ -1,0 +1,61 @@
+import { Form, Input } from "antd";
+import { useState } from "react";
+import axios from "axios";
+
+const ViewOwnerByStatus = () => {
+  const [data, setData] = useState(null);
+  const [status, setStatus] = useState(null);
+
+  const handleSubmitUsername = async (value) => {
+    setStatus(value.status);
+
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_HOST}/owner/${value.status}`
+      );
+
+      console.log(data);
+      setData(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  if (!data || !status) {
+    return (
+      <div className="form-container">
+        <Form
+          labelCol={{ span: 6 }}
+          onFinish={(value) => {
+            handleSubmitUsername(value);
+          }}
+        >
+          <Form.Item name="status" label="สถานะของเจ้าของโครงการ">
+            <Input />
+          </Form.Item>
+
+          <Form.Item className="btn-container">
+            <button className="btn fill-btn" type="submit" block="true">
+              ค้นหา
+            </button>
+          </Form.Item>
+        </Form>
+      </div>
+    );
+  } else {
+    return (
+      <div className="form-container">
+        <h1>เจ้าของโครงการที่มีสถานะ {status}</h1>
+        {/* {data.map((d, i) => (
+          <div className="section" key={i}>
+            <div className="row"> </div>
+         
+            
+          </div>
+        ))} */}
+      </div>
+    );
+  }
+};
+
+export default ViewOwnerByStatus;
