@@ -1,8 +1,10 @@
+const { LEGAL_TLS_SOCKET_OPTIONS } = require("mongodb");
 const ProjectOwner = require("../schemas/project_owner_model");
 
 const getProjectOwnerByUsername = async (username) => {
+  console.log(username);
   const info = await ProjectOwner.findOne(
-    { likes: { $username: username } },
+    { username: username },
     {
       _id: 1,
       username: 1,
@@ -50,7 +52,7 @@ const insertProject = async (id, project_info) => {
   try {
     let { project } = await ProjectOwner.findById({ _id: id });
     project.push(project_info);
-    await ProjectOwner.findOneAndUpdate(id, { project: project });
+    await ProjectOwner.findOneAndUpdate({ _id: id }, { project: project });
   } catch (err) {
     throw err;
   }
