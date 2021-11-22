@@ -33,21 +33,24 @@ const ViewProject = () => {
   if (!data || !username) {
     return (
       <div className="form-container">
+        <h1>ค้นหาโครงการ</h1>
         <Form
           labelCol={{ span: 6 }}
           onFinish={(value) => {
             handleSubmitUsername(value);
           }}
         >
-          <Form.Item name="username" label="ชื่อบัญชีผู้ใช้">
-            <Input />
-          </Form.Item>
+          <div className="section">
+            <Form.Item name="username" label="ชื่อบัญชีผู้ใช้">
+              <Input />
+            </Form.Item>
 
-          <Form.Item className="btn-container">
-            <button className="btn fill-btn" type="submit" block="true">
-              ค้นหา
-            </button>
-          </Form.Item>
+            <Form.Item className="btn-container">
+              <button className="btn fill-btn" type="submit" block="true">
+                ค้นหา
+              </button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     );

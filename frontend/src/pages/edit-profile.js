@@ -82,6 +82,7 @@ const EditProfile = () => {
   if (!userInfo || !verificationInfo || !day || !oldUsername) {
     return (
       <div className="form-container">
+        <h1>แก้ไขข้อมูลบัญชี</h1>
         <Form
           form={form}
           labelCol={{ span: 6 }}
@@ -89,15 +90,17 @@ const EditProfile = () => {
             handleGetData(value);
           }}
         >
-          <Form.Item name="username" label="ชื่อบัญชีผู้ใช้">
-            <Input />
-          </Form.Item>
+          <div className="section">
+            <Form.Item name="username" label="ชื่อบัญชีผู้ใช้">
+              <Input />
+            </Form.Item>
 
-          <Form.Item className="btn-container">
-            <button className="btn fill-btn" type="submit" block="true">
-              ค้นหา
-            </button>
-          </Form.Item>
+            <Form.Item className="btn-container">
+              <button className="btn fill-btn" type="submit" block="true">
+                ค้นหา
+              </button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     );
@@ -140,11 +143,7 @@ const EditProfile = () => {
             </div>
             <div className="row">
               <div className="two-col">
-                <Form.Item
-                  name="password"
-                  label="รหัสผ่าน"
-                  hasFeedback
-                >
+                <Form.Item name="password" label="รหัสผ่าน" hasFeedback>
                   <Input.Password />
                 </Form.Item>
               </div>

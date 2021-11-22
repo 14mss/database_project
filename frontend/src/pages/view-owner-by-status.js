@@ -24,21 +24,24 @@ const ViewOwnerByStatus = () => {
   if (!data || !status) {
     return (
       <div className="form-container">
+        <h1>ค้นหาเจ้าของโครงการตามสถานะ</h1>
         <Form
           labelCol={{ span: 6 }}
           onFinish={(value) => {
             handleSubmitUsername(value);
           }}
         >
-          <Form.Item name="status" label="สถานะของเจ้าของโครงการ">
-            <Input />
-          </Form.Item>
+          <div className="section">
+            <Form.Item name="status" label="สถานะของเจ้าของโครงการ">
+              <Input />
+            </Form.Item>
 
-          <Form.Item className="btn-container">
-            <button className="btn fill-btn" type="submit" block="true">
-              ค้นหา
-            </button>
-          </Form.Item>
+            <Form.Item className="btn-container">
+              <button className="btn fill-btn" type="submit" block="true">
+                ค้นหา
+              </button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     );
