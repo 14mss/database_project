@@ -46,13 +46,14 @@ const ViewOwnerByStatus = () => {
     return (
       <div className="form-container">
         <h1>เจ้าของโครงการที่มีสถานะ {status}</h1>
-        {/* {data.map((d, i) => (
+        {data.map((d, i) => (
           <div className="section" key={i}>
-            <div className="row"> </div>
-         
-            
+            <div className="row">เจ้าของโครงการที่ {i + 1}</div>
+            <div className="row">ชื่อบัญชีผู้ใช้: {d.username}</div>
+            <div className="row">ชื่อจริง: {d.firstname}</div>
+            <div className="row">นามสกุล: {d.lastname}</div>
           </div>
-        ))} */}
+        ))}
       </div>
     );
   }
