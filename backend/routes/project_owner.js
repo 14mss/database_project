@@ -47,6 +47,7 @@ router.post("/register", async (req, res) => {
     );
     return res.send("success").status(201);
   } catch (err) {
+    await project_owner_service.deleteProjectOwner(user_id);
     return res.status(400).json({
       status: "Bad Request",
       message: "Username or citizen id already exist",

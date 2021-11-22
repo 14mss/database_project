@@ -4,7 +4,6 @@ import axios from "axios";
 const RegisterProjectOwner = () => {
   const [form] = Form.useForm();
 
-
   const handleSubmit = async (value) => {
     const bd = value["birthday"].format("YYYY-MM-DD");
 
@@ -35,10 +34,19 @@ const RegisterProjectOwner = () => {
     };
 
     try {
-      await axios.post(`${process.env.REACT_APP_HOST}/owner/register`, obj);
+      const res = await axios.post(
+        `${process.env.REACT_APP_HOST}/owner/register`,
+        obj
+      );
+
       message.success("การลงทะเบียนเสร็จสมบูรณ์");
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
+      if (
+        err.response.data.message === "Username or citizen id already exist"
+      ) {
+        message.warning("มีชื่อผู้ใช้ หรือ เลขบัตรประชาชนอยู่ในระบบแล้ว");
+      }
     }
   };
   return (

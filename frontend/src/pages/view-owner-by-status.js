@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import { useState } from "react";
 import axios from "axios";
 
@@ -11,13 +11,12 @@ const ViewOwnerByStatus = () => {
 
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_HOST}/owner/${value.status}`
+        `${process.env.REACT_APP_HOST}/owner/get/${value.status}`
       );
 
-      console.log(data);
-      setData(data);
+      setData(data.user_info);
     } catch (e) {
-      console.log(e);
+      message.error("มีข้อผิดพลาดเกิดขึ้น กรุณาลองใหม่ในภายหลัง");
     }
   };
 
